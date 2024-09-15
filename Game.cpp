@@ -1,4 +1,6 @@
 #include <iostream>
+#include "Board.h"
+#include "Player.h"
 
 using namespace std;
 void IntroMessage();
