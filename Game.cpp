@@ -22,4 +22,8 @@ void IntroMessage()
 
 	Board gameBoard;
 	gameBoard.DisplayBoard();
+	while (true) {
+		gameBoard.MakeMove();
+		gameBoard.DisplayBoard();
+	}
 }

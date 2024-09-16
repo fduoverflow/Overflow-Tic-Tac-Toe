@@ -10,8 +10,9 @@ class Board {
 public:
 	Board();
 	void DisplayBoard();
+	void MakeMove();
 private:
-	char board[9];
+	char board[9] = {};
 };
 
 Board::Board() {
@@ -30,4 +31,31 @@ void Board::DisplayBoard() {
 		}
 		cout << " |" << endl;
 	}
+}
+
+void Board::MakeMove() {
+	string move;
+	cout << "Enter space where you want your move: ";
+	cin >> move;
+
+	int column, row;
+
+	switch (move[0]) {
+	case 'A':
+		column = 0;
+		break;
+	case 'B':
+		column = 1;
+		break;
+	case 'C':
+		column = 2;
+		break;
+	}
+
+	row = move[1] - '1';
+
+	// ADD ILLEGAL MOVE LOGIC HERE
+
+
+	board[row * 3 + column] = 'X';
 }
