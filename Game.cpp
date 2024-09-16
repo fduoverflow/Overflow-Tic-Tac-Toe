@@ -19,4 +19,11 @@ void IntroMessage()
 	cout << "The Player who is 'x' will go first. The Player who is 'o' goes second.\n";
 	cout << "A win counter will be displayed at the end of each game.\n";
 	cout << "Resetting the board will not reset the win counter, restarting the program will however.\n\n";
+
+	Board gameBoard;
+	gameBoard.DisplayBoard();
+	while (true) {
+		gameBoard.MakeMove();
+		gameBoard.DisplayBoard();
+	}
 }
