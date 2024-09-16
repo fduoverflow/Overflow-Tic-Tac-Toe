@@ -74,5 +74,6 @@ bool Board::MoveChecker(int row, int col, string move, char board[])
 		return false;
 	}
 	// check if move has already been played
+
 	return true;
 }
