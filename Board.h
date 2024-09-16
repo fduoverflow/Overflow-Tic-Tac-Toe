@@ -11,6 +11,7 @@ public:
 	Board();
 	void DisplayBoard();
 	void MakeMove();
+	bool MoveChecker(int row, int col, string move, char board[]);
 private:
 	char board[9] = {};
 };
@@ -58,4 +59,20 @@ void Board::MakeMove() {
 
 
 	board[row * 3 + column] = 'X';
+}
+
+/*
+This function will check to see if the player is making an illegal move
+Checks: If there is already a mark in a spot and
+if the move is out of bounds (not A,B,C or 1,2,3 for columns/rows respectively)
+*/
+bool Board::MoveChecker(int row, int col, string move, char board[])
+{
+	// check that move is not out of bounds w/ row and column
+	if (row < 1 || row > 3 || col < 1 || col > 3)
+	{
+		return false;
+	}
+	// check if move has already been played
+	return true;
 }
