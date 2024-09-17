@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 using namespace std;
 // This header file will include the Player class
@@ -7,6 +8,8 @@ using namespace std;
 /*class Player {
 public:
 	string GetPlayer();
+	int GetWinCount();
+	int GetLossCount();
 	void AddWin();
 	void AddLoss();
 private:
@@ -16,6 +19,14 @@ private:
 };
 
 string GetPlayer() {
+
+}
+
+int GetWinCount() {
+
+}
+
+int GetLossCount() {
 
 }
 
