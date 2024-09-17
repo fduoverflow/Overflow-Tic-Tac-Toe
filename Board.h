@@ -13,8 +13,9 @@ public:
 	void DisplayBoard();
 	void MakeMove();
 	bool MoveChecker(int row, int col, string, string[]);
-	bool VicotryChecker();
+	bool VictoryChecker();
 	bool TieChecker();
+	void ResetBoard();
 	string occupiedSpot[BOARD_SIZE];
 	int moveCount = 0;
 private:
@@ -120,7 +121,7 @@ bool Board::MoveChecker(int row, int col, string move, string occupiedSpot[])
 * Returns true if win condition found and false otherwise.
 * Added by Shakir Tempelman.
 */
-bool Board::VicotryChecker()
+bool Board::VictoryChecker()
 {
 	//Check rows
 	if ((board[0] != ' ') && (board[0] == board[1] && board[1] == board[2]))
@@ -162,4 +163,14 @@ bool Board::TieChecker()
 	}
 
 	return true;
+}
+
+//This function resets the board.
+void Board::ResetBoard() {
+	for (int i = 0; i < BOARD_SIZE; i++) {
+		board[i] = ' ';
+		occupiedSpot[i] = "";
+	}
+	moveCount = 0;
+	DisplayBoard();
 }
