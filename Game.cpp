@@ -35,7 +35,7 @@ void PlayGame()
 	gameBoard.DisplayBoard();
 	while (true) {
 		//Check for win or tie
-		winFound = gameBoard.VicotryChecker();
+		winFound = gameBoard.VictoryChecker();
 		tieFound = gameBoard.TieChecker();
 
 		//Play or reset based on winFound
@@ -44,27 +44,7 @@ void PlayGame()
 			gameBoard.MakeMove();
 			gameBoard.DisplayBoard();
 		}
-		else if (tieFound == true)
-		{
-			cout << "Tie game!\n";
-
-			//Replay prompt and evaluation
-			cout << "Would you like to play again? Enter Y to replay: \n";
-			cin >> replayChoice;
-			replayChoice = toupper(replayChoice);
-			if (replayChoice == 'Y')
-			{
-				winFound = false;
-				tieFound = false;
-				//Reset board here
-			}
-			else
-			{
-				//End program
-				exit(0);
-			}
-		}
-		else
+		else if (winFound == true)
 		{
 			cout << "Congrats to Player tempName on winning!\n";		//Can replace tempName with winning player once Player.h class can identify which player has x or o
 			//Increment player win/loss counts and display them here when Player.h has functionality implemented.
@@ -77,7 +57,28 @@ void PlayGame()
 			{
 				winFound = false;
 				tieFound = false;
-				//Reset board here
+				gameBoard.ResetBoard();
+			}
+			else
+			{
+				//End program
+				exit(0);
+			}
+		}
+		else if (tieFound == true)
+		{
+			cout << "Congrats to Player tempName on winning!\n";		//Can replace tempName with winning player once Player.h class can identify which player has x or o
+			//Increment player win/loss counts and display them here when Player.h has functionality implemented.
+			
+			//Replay prompt and evaluation
+			cout << "Would you like to play again? Enter Y to replay: \n";
+			cin >> replayChoice;
+			replayChoice = toupper(replayChoice);
+			if (replayChoice == 'Y')
+			{
+				winFound = false;
+				tieFound = false;
+				gameBoard.ResetBoard();
 			}
 			else
 			{
