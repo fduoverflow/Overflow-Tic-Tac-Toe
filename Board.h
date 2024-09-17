@@ -9,8 +9,12 @@ using namespace std;
 const int BOARD_SIZE = 9;
 class Board {
 public:
+	// Default Constructor
 	Board();
+	// Displays the board to the console in its current state
 	void DisplayBoard();
+	// Asks the player to enter a move, then updates the board accordingly if the move is valid. 
+	// If not valid, it will continue to ask the player until a valid move is given.
 	void MakeMove();
 	bool MoveChecker(int row, int col, string, string[]);
 	bool VicotryChecker();
@@ -18,8 +22,9 @@ public:
 	string occupiedSpot[BOARD_SIZE];
 	int moveCount = 0;
 private:
+	int GetColumn(char);
 	char board[BOARD_SIZE] = {};
-	bool currentMark = false;				//Used to switch player marks
+	bool currentMark = false;		//Used to switch player marks
 };
 
 Board::Board() {
@@ -31,8 +36,10 @@ Board::Board() {
 void Board::DisplayBoard() {
 	cout << "    A   B   C" << endl;
 	cout << "   ----------- " << endl;
+	// Iterates through the rows
 	for (int r = 0; r < 3; r++) {
 		cout << r + 1;
+		// Iterates through the columns
 		for (int c = 0; c < 3; c++) {
 			cout << " | " << board[3 * r + c];
 		}
@@ -41,51 +48,65 @@ void Board::DisplayBoard() {
 }
 
 void Board::MakeMove() {
-	string move;
+	bool validMove = false;
 
-	cout << "Enter space where you want your move: ";
-	cin >> move;
+	// Until a vaid move is entered, the same player will be prompted4
+	while (!validMove) {
+		string move;
 
-	int column, row;
+		cout << "Enter space where you want your move: ";
+		cin >> move;
 
-	switch (move[0]) {
-	case 'A':
-		column = 0;
-		break;
-	case 'B':
-		column = 1;
-		break;
-	case 'C':
-		column = 2;
-		break;
-	default:
-		column = -1;
-		break;
+		int column = 0, row = 0;
+		// For cases where the user enters the letter than the number
+		if (!isdigit(move[0])) {
+			column = GetColumn(move[0]);
+			row = move[1] - '1';
+		}
+		// For cases where the user enters the number than the letter
+		else
+		{
+			column = GetColumn(move[1]);
+			row = move[0] - '1';
+		}
+
+		// Call the MoveChecker function to check if a move is valid
+		// Also catches for input formatting that doesn't satisfy above cases.
+		validMove = MoveChecker(row, column, move, occupiedSpot);
+
+		// If move is valid it runs this code, otherwise MoveChecker prompts the user to go again
+		if (validMove)
+		{
+			if (currentMark == false)
+			{
+				board[row * 3 + column] = 'X';
+				currentMark = true;
+			}
+			else if (currentMark == true)
+			{
+				board[row * 3 + column] = 'O';
+				currentMark = false;
+			}
+			moveCount++;
+
+			// String array keeps track of moves that have already been played
+			if (moveCount < 9)
+				occupiedSpot[moveCount] = move;
+		}
 	}
+}
 
-	row = move[1] - '1';
-
-	// Call the MoveChecker function to check if a move is valid
-	bool validMove = MoveChecker(row, column, move, occupiedSpot);
-
-	// If move is valid it runs this code, otherwise MoveChecker prompts the user to go again
-	if (validMove)
-	{
-		if (currentMark == false)
-		{
-			board[row * 3 + column] = 'X';
-			currentMark = true;
-		}
-		else if (currentMark == true)
-		{
-			board[row * 3 + column] = 'O';
-			currentMark = false;
-		}
-		moveCount++;
-
-		// String array keeps track of moves that have already been played
-		if(moveCount < 9)
-			occupiedSpot[moveCount] = move;
+// Concerts the column letter into it's respective column index
+int Board::GetColumn(char c) {
+	switch (toupper(c)) {
+	case 'A':
+		return 0;
+	case 'B':
+		return 1;
+	case 'C':
+		return 2;
+	default:
+		return -1;
 	}
 }
 
