@@ -20,10 +20,61 @@ void IntroMessage()
 	cout << "A win counter will be displayed at the end of each game.\n";
 	cout << "Resetting the board will not reset the win counter, restarting the program will however.\n\n";
 
+	/*
+	* Victory checking added by Shakir Tempelman. I also recommend moving this code segment to the main() method to maintain scope of this method.
+	*/
 	Board gameBoard;
+	string replayChoice;
+	bool winFound;
+	bool tieFound;
 	gameBoard.DisplayBoard();
 	while (true) {
-		gameBoard.MakeMove();
-		gameBoard.DisplayBoard();
+		//Check for win or tie
+		winFound = gameBoard.VicotryChecker();
+		tieFound = gameBoard.TieChecker();
+
+		//Play or reset based on winFound
+		if (winFound != true && tieFound != true)
+		{
+			gameBoard.MakeMove();
+			gameBoard.DisplayBoard();
+		}
+		else if (tieFound == true)
+		{
+			cout << "Tie game!\n";
+
+			//Replay prompt and evaluation
+			cout << "Would you like to play again? Enter Y to replay: \n";
+			cin >> replayChoice;
+			if (replayChoice == "Y")
+			{
+				winFound = false;
+				tieFound = false;
+				gameBoard.ResetBoard();
+			}
+			else
+			{
+				//End program
+			}
+		}
+		else
+		{
+			cout << "Congrats to Player tempName on winning!\n";		//Can replace tempName with winning player once Player.h class can identify which player has x or o
+			//Increment player win/loss counts and display them here when Player.h has functionality implemented.
+
+			//Replay prompt and evaluation
+			cout << "Would you like to play again? Enter Y to replay: \n";
+			cin >> replayChoice;
+			if (replayChoice == "Y")
+			{
+				winFound = false;
+				tieFound = false;
+				gameBoard.ResetBoard();
+			}
+			else
+			{
+				//End program
+			}
+		}
 	}
 }

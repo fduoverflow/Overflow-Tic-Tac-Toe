@@ -13,6 +13,9 @@ public:
 	void DisplayBoard();
 	void MakeMove();
 	bool MoveChecker(int row, int col, string, string[]);
+	bool VicotryChecker();
+	bool TieChecker();
+	void ResetBoard();
 	string occupiedSpot[BOARD_SIZE];
 	int moveCount = 0;
 private:
@@ -99,4 +102,63 @@ bool Board::MoveChecker(int row, int col, string move, string occupiedSpot[])
 	}
 	// If everything checks out, return true
 	return true;
+}
+
+/*
+* This function checks state of the board for a win condition.
+* Returns true if win condition found and false otherwise.
+* Added by Shakir Tempelman.
+*/
+bool Board::VicotryChecker()
+{
+	//Check rows
+	if ((board[0] != ' ') && (board[0] == board[1] && board[1] == board[2]))
+		return true;
+	else if ((board[3] != ' ') && (board[3] == board[4] && board[4] == board[5]))
+		return true;
+	else if ((board[6] != ' ') && (board[6] == board[7] && board[7] == board[8]))
+		return true;
+
+	//Check columns
+	if ((board[0] != ' ') && (board[0] == board[3] && board[3] == board[6]))
+		return true;
+	else if ((board[1] != ' ') && (board[1] == board[4] && board[4] == board[7]))
+		return true;
+	else if ((board[2] != ' ') && (board[2] == board[5] && board[5] == board[8]))
+		return true;
+
+	//Check diagonals
+	if ((board[0] != ' ') && (board[0] == board[4] && board[4] == board[8]))
+		return true;
+	else if ((board[2] != ' ') && (board[2] == board[4] && board[4] == board[6]))
+		return true;
+
+	return false;
+}
+
+/*
+* This function checks if the board is filled and there is a tie.
+* Returns true if tie is found and false otherwise.
+* Added by Shakir Tempelman.
+*/
+bool Board::TieChecker()
+{
+	//Check board for empty spaces
+	for (char square : board)
+	{
+		if (square == ' ')
+			return false;
+	}
+
+	return true;
+}
+
+//This function resets the board.
+void Board::ResetBoard() {
+	for (int i = 0; i < BOARD_SIZE; i++) {
+		board[i] = ' ';
+		occupiedSpot[i] = "";
+	}
+	moveCount = 0;
+	DisplayBoard();
 }
