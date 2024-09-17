@@ -84,7 +84,7 @@ void Board::MakeMove() {
 		moveCount++;
 
 		// String array keeps track of moves that have already been played
-		if(moveCount < 9)
+		if (moveCount < 9)
 			occupiedSpot[moveCount] = move;
 	}
 }
@@ -155,7 +155,7 @@ bool Board::VicotryChecker()
 bool Board::TieChecker()
 {
 	//Check board for empty spaces
-	for (char square : board) 
+	for (char square : board)
 	{
 		if (square == ' ')
 			return false;
