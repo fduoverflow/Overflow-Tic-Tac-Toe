@@ -16,7 +16,7 @@ public:
 	bool VictoryChecker();
 	bool TieChecker();
 	void ResetBoard();
-	bool GetPlayer();
+	bool GetMark();
 	string occupiedSpot[BOARD_SIZE];
 	int moveCount = 0;
 private:
@@ -173,12 +173,10 @@ void Board::ResetBoard() {
 		occupiedSpot[i] = "";
 	}
 	moveCount = 0;
+	currentMark = false;
 	DisplayBoard();
 }
 
-bool Board::GetPlayer() {
-	if (currentMark == true)
-		return true;
-	else
-		return false;
+bool Board::GetMark(){
+	return currentMark;
 }
