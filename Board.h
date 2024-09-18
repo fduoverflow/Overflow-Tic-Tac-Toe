@@ -47,6 +47,7 @@ void Board::MakeMove() {
 
 	cout << "Enter space where you want your move: ";
 	cin >> move;
+	transform(move.begin(), move.end(), move.begin(), ::toupper);
 
 	int column, row;
 
