@@ -29,9 +29,13 @@ void PlayGame()
 	* Victory checking added by Shakir Tempelman. I also recommend moving this code segment to the main() method to maintain scope of this method.
 	*/
 	Board gameBoard;
+	Player player1("Player 1", 0);
+	Player player2("Player 2", 0);
 	char replayChoice;
 	bool winFound;
 	bool tieFound;
+
+
 	gameBoard.DisplayBoard();
 	while (true) {
 		//Check for win or tie
@@ -46,8 +50,16 @@ void PlayGame()
 		}
 		else if (winFound == true)
 		{
-			cout << "Congrats to Player tempName on winning!\n";		//Can replace tempName with winning player once Player.h class can identify which player has x or o
-			//Increment player win/loss counts and display them here when Player.h has functionality implemented.
+			if (gameBoard.GetMark()) {
+				player1.AddWin();
+				cout << "Congrats to Player 1 on winning!\n";
+			}
+			else {
+				player2.AddWin();
+				cout << "Congrats to Player 2 on winning!\n";
+			}
+
+			cout << "Player 1 Wins: " << player1.GetWinCount() << "\nPlayer 2 Wins: " << player2.GetWinCount() << "\n";
 
 			//Replay prompt and evaluation
 			cout << "Would you like to play again? Enter Y to replay: \n";
@@ -67,8 +79,8 @@ void PlayGame()
 		}
 		else if (tieFound == true)
 		{
-			cout << "Congrats to Player tempName on winning!\n";		//Can replace tempName with winning player once Player.h class can identify which player has x or o
-			//Increment player win/loss counts and display them here when Player.h has functionality implemented.
+			cout << "It was a tie!\n";
+			cout << "Player 1 Wins: " << player1.GetWinCount() << "\nPlayer 2 Wins: " << player2.GetWinCount() << "\n";
 			
 			//Replay prompt and evaluation
 			cout << "Would you like to play again? Enter Y to replay: \n";
