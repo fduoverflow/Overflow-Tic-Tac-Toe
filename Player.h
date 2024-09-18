@@ -5,36 +5,25 @@ using namespace std;
 // This header file will include the Player class
 // It will hold the player scores, the player mark, with a potential improvement of allowing players to switch marks
 
-/*class Player {
+
+class Player {
 public:
-	string GetPlayer();
+	Player(string name, int win);
 	int GetWinCount();
-	int GetLossCount();
 	void AddWin();
-	void AddLoss();
 private:
-	string PlayerName;
-	int WinCount;
-	int LossCount;
+	int WinCount = 0;
 };
 
-string GetPlayer() {
+Player::Player(string name, int win) {
 
 }
 
-int GetWinCount() {
-
+int Player::GetWinCount() {
+	return WinCount;
 }
 
-int GetLossCount() {
 
+void Player::AddWin() {
+	WinCount++;
 }
-
-void AddWin() {
-
-}
-
-void AddLoss() {
-
-}
-*/
