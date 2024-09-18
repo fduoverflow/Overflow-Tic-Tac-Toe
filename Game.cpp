@@ -26,7 +26,7 @@ void IntroMessage()
 void PlayGame()
 {
 	/*
-	* Victory checking added by Shakir Tempelman. I also recommend moving this code segment to the main() method to maintain scope of this method.
+	* Victory checking added by Shakir Tempelman.
 	*/
 	Board gameBoard;
 	Player player1("Player 1", 0);
@@ -34,6 +34,7 @@ void PlayGame()
 	char replayChoice;
 	bool winFound;
 	bool tieFound;
+	bool isPlayingAgain = false;
 
 
 	gameBoard.DisplayBoard();
@@ -62,19 +63,24 @@ void PlayGame()
 			cout << "Player 1 Wins: " << player1.GetWinCount() << "\nPlayer 2 Wins: " << player2.GetWinCount() << "\n";
 
 			//Replay prompt and evaluation
-			cout << "Would you like to play again? Enter Y to replay: \n";
-			cin >> replayChoice;
-			replayChoice = toupper(replayChoice);
-			if (replayChoice == 'Y')
+			isPlayingAgain = false;
+			while (!isPlayingAgain)
 			{
-				winFound = false;
-				tieFound = false;
-				gameBoard.ResetBoard();
-			}
-			else
-			{
-				//End program
-				exit(0);
+				cout << "Would you like to play again? Enter Y to replay and N to exit: \n";
+				cin >> replayChoice;
+				replayChoice = toupper(replayChoice);
+				if (replayChoice == 'Y')
+				{
+					isPlayingAgain = true;
+					winFound = false;
+					tieFound = false;
+					gameBoard.ResetBoard();
+				}
+				else if (replayChoice == 'N')
+				{
+					//End program
+					exit(0);
+				}
 			}
 		}
 		else if (tieFound == true)
@@ -83,19 +89,23 @@ void PlayGame()
 			cout << "Player 1 Wins: " << player1.GetWinCount() << "\nPlayer 2 Wins: " << player2.GetWinCount() << "\n";
 			
 			//Replay prompt and evaluation
-			cout << "Would you like to play again? Enter Y to replay: \n";
-			cin >> replayChoice;
-			replayChoice = toupper(replayChoice);
-			if (replayChoice == 'Y')
+			isPlayingAgain = false;
+			while (!isPlayingAgain)
 			{
-				winFound = false;
-				tieFound = false;
-				gameBoard.ResetBoard();
-			}
-			else
-			{
-				//End program
-				exit(0);
+				cout << "Would you like to play again? Enter Y to replay and N to exit: \n";
+				cin >> replayChoice;
+				replayChoice = toupper(replayChoice);
+				if (replayChoice == 'Y')
+				{
+					winFound = false;
+					tieFound = false;
+					gameBoard.ResetBoard();
+				}
+				else if (replayChoice == 'N')
+				{
+					//End program
+					exit(0);
+				}
 			}
 		}
 	}
