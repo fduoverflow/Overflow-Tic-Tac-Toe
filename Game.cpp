@@ -4,10 +4,12 @@
 
 using namespace std;
 void IntroMessage();
+void PlayGame();
 
 int main() {
 
 	IntroMessage();
+	PlayGame();
 }
 
 void IntroMessage()
@@ -19,18 +21,21 @@ void IntroMessage()
 	cout << "The Player who is 'x' will go first. The Player who is 'o' goes second.\n";
 	cout << "A win counter will be displayed at the end of each game.\n";
 	cout << "Resetting the board will not reset the win counter, restarting the program will however.\n\n";
+}
 
+void PlayGame()
+{
 	/*
 	* Victory checking added by Shakir Tempelman. I also recommend moving this code segment to the main() method to maintain scope of this method.
 	*/
 	Board gameBoard;
-	string replayChoice;
+	char replayChoice;
 	bool winFound;
 	bool tieFound;
 	gameBoard.DisplayBoard();
 	while (true) {
 		//Check for win or tie
-		winFound = gameBoard.VicotryChecker();
+		winFound = gameBoard.VictoryChecker();
 		tieFound = gameBoard.TieChecker();
 
 		//Play or reset based on winFound
@@ -39,25 +44,7 @@ void IntroMessage()
 			gameBoard.MakeMove();
 			gameBoard.DisplayBoard();
 		}
-		else if (tieFound == true)
-		{
-			cout << "Tie game!\n";
-
-			//Replay prompt and evaluation
-			cout << "Would you like to play again? Enter Y to replay: \n";
-			cin >> replayChoice;
-			if (replayChoice == "Y")
-			{
-				winFound = false;
-				tieFound = false;
-				gameBoard.ResetBoard();
-			}
-			else
-			{
-				//End program
-			}
-		}
-		else
+		else if (winFound == true)
 		{
 			cout << "Congrats to Player tempName on winning!\n";		//Can replace tempName with winning player once Player.h class can identify which player has x or o
 			//Increment player win/loss counts and display them here when Player.h has functionality implemented.
@@ -65,7 +52,8 @@ void IntroMessage()
 			//Replay prompt and evaluation
 			cout << "Would you like to play again? Enter Y to replay: \n";
 			cin >> replayChoice;
-			if (replayChoice == "Y")
+			replayChoice = toupper(replayChoice);
+			if (replayChoice == 'Y')
 			{
 				winFound = false;
 				tieFound = false;
@@ -74,6 +62,28 @@ void IntroMessage()
 			else
 			{
 				//End program
+				exit(0);
+			}
+		}
+		else if (tieFound == true)
+		{
+			cout << "Congrats to Player tempName on winning!\n";		//Can replace tempName with winning player once Player.h class can identify which player has x or o
+			//Increment player win/loss counts and display them here when Player.h has functionality implemented.
+			
+			//Replay prompt and evaluation
+			cout << "Would you like to play again? Enter Y to replay: \n";
+			cin >> replayChoice;
+			replayChoice = toupper(replayChoice);
+			if (replayChoice == 'Y')
+			{
+				winFound = false;
+				tieFound = false;
+				gameBoard.ResetBoard();
+			}
+			else
+			{
+				//End program
+				exit(0);
 			}
 		}
 	}

@@ -13,13 +13,14 @@ public:
 	void DisplayBoard();
 	void MakeMove();
 	bool MoveChecker(int row, int col, string, string[]);
-	bool VicotryChecker();
+	bool VictoryChecker();
 	bool TieChecker();
 	void ResetBoard();
 	string occupiedSpot[BOARD_SIZE];
 	int moveCount = 0;
 private:
 	char board[BOARD_SIZE] = {};
+	bool currentMark = false;				//Used to switch player marks
 };
 
 Board::Board() {
@@ -42,6 +43,7 @@ void Board::DisplayBoard() {
 
 void Board::MakeMove() {
 	string move;
+
 	cout << "Enter space where you want your move: ";
 	cin >> move;
 
@@ -70,11 +72,21 @@ void Board::MakeMove() {
 	// If move is valid it runs this code, otherwise MoveChecker prompts the user to go again
 	if (validMove)
 	{
-		board[row * 3 + column] = 'X';
+		if (currentMark == false)
+		{
+			board[row * 3 + column] = 'X';
+			currentMark = true;
+		}
+		else if (currentMark == true)
+		{
+			board[row * 3 + column] = 'O';
+			currentMark = false;
+		}
 		moveCount++;
 
 		// String array keeps track of moves that have already been played
-		occupiedSpot[moveCount] = move;
+		if (moveCount < 9)
+			occupiedSpot[moveCount] = move;
 	}
 }
 
@@ -109,7 +121,7 @@ bool Board::MoveChecker(int row, int col, string move, string occupiedSpot[])
 * Returns true if win condition found and false otherwise.
 * Added by Shakir Tempelman.
 */
-bool Board::VicotryChecker()
+bool Board::VictoryChecker()
 {
 	//Check rows
 	if ((board[0] != ' ') && (board[0] == board[1] && board[1] == board[2]))
