@@ -121,6 +121,7 @@ void PlayGame()
 					winFound = false;
 					tieFound = false;
 					gameBoard.ResetBoard();
+					isPlayingAgain = true;
 				}
 				else if (replayChoice == "N")
 				{
