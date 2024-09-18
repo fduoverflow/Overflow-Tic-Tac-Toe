@@ -29,9 +29,13 @@ void PlayGame()
 	* Victory checking added by Shakir Tempelman. I also recommend moving this code segment to the main() method to maintain scope of this method.
 	*/
 	Board gameBoard;
+	Player player1("Player 1", 0, 0);
+	Player player2("Player 2", 0, 0);
 	char replayChoice;
 	bool winFound;
 	bool tieFound;
+
+
 	gameBoard.DisplayBoard();
 	while (true) {
 		//Check for win or tie

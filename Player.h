@@ -1,40 +1,43 @@
 #pragma once
 #include <string>
+#include "Board.h"
 
 using namespace std;
 // This header file will include the Player class
 // It will hold the player scores, the player mark, with a potential improvement of allowing players to switch marks
 
-/*class Player {
+Board board;
+
+class Player {
 public:
+	Player(string name, int win, int loss);
 	string GetPlayer();
 	int GetWinCount();
 	int GetLossCount();
 	void AddWin();
 	void AddLoss();
 private:
-	string PlayerName;
-	int WinCount;
-	int LossCount;
+	string PlayerName = "";
+	int WinCount = 0;
+	int LossCount = 0;
 };
 
-string GetPlayer() {
-
+string Player::GetPlayer() {
+	return PlayerName;
 }
 
-int GetWinCount() {
-
+int Player::GetWinCount() {
+	return WinCount;
 }
 
-int GetLossCount() {
-
+int Player::GetLossCount() {
+	return LossCount;
 }
 
-void AddWin() {
-
+void Player::AddWin() {
+	WinCount++;
 }
 
-void AddLoss() {
-
+void Player::AddLoss() {
+	LossCount++;
 }
-*/
