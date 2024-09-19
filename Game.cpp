@@ -93,7 +93,7 @@ void PlayGame()
 				}
 				else
 				{
-					cout << "Please enter Y or N!\n";
+					cout << "Please enter valid input!\n";
 
 					//Clear any extra characters
 					cin.clear();
@@ -134,7 +134,7 @@ void PlayGame()
 				}
 				else
 				{
-					cout << "Please enter Y or N!\n";
+					cout << "Please enter valid input!\n";
 
 					//Clear any extra characters
 					cin.clear();
