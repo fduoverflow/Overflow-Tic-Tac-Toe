@@ -20,6 +20,7 @@ public:
 	string occupiedSpot[BOARD_SIZE];
 	int moveCount = 0;
 private:
+	int GetColumn(char);
 	char board[BOARD_SIZE] = {};
 	bool currentMark = false;				//Used to switch player marks
 };
@@ -47,26 +48,19 @@ void Board::MakeMove() {
 
 	cout << "Enter space where you want your move: ";
 	cin >> move;
-	transform(move.begin(), move.end(), move.begin(), ::toupper);
 
-	int column, row;
+	int column = -1, row = -1;
 
-	switch (move[0]) {
-	case 'A':
-		column = 0;
-		break;
-	case 'B':
-		column = 1;
-		break;
-	case 'C':
-		column = 2;
-		break;
-	default:
-		column = -1;
-		break;
+	// In the case where use enters a letter then a number
+	if (!isdigit(move[0])) {
+		column = GetColumn(move[0]);
+		row = move[1] - '1';
 	}
-
-	row = move[1] - '1';
+	// In cases where the user enters a number then a letter
+	else if (!isdigit(move[1])) {
+		column = GetColumn(move[1]);
+		row = move[0] - '1';
+	}
 
 	// Call the MoveChecker function to check if a move is valid
 	bool validMove = MoveChecker(row, column, move, occupiedSpot);
@@ -89,6 +83,19 @@ void Board::MakeMove() {
 		// String array keeps track of moves that have already been played
 		if (moveCount < 9)
 			occupiedSpot[moveCount] = move;
+	}
+}
+
+int Board::GetColumn(char c) {
+	switch (toupper(c)) {
+	case 'A':
+		return 0;
+	case 'B':
+		return 1;
+	case 'C':
+		return 2;
+	default:
+		return -1;
 	}
 }
 
