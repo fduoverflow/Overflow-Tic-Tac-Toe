@@ -12,7 +12,7 @@ public:
 	Board();
 	void DisplayBoard();
 	void MakeMove();
-	bool MoveChecker(int row, int col, string, string[]);
+	bool MoveChecker(int row, int col, string[]);
 	bool VictoryChecker();
 	bool TieChecker();
 	void ResetBoard();
@@ -48,7 +48,7 @@ void Board::MakeMove() {
 
 	cout << "Enter space where you want your move: ";
 	cin >> move;
-
+	transform(move.begin(), move.end(), move.begin(), ::toupper);
 	int column = -1, row = -1;
 
 	// In the case where use enters a letter then a number
@@ -58,12 +58,14 @@ void Board::MakeMove() {
 	}
 	// In cases where the user enters a number then a letter
 	else if (!isdigit(move[1])) {
+		
 		column = GetColumn(move[1]);
 		row = move[0] - '1';
+
 	}
 
 	// Call the MoveChecker function to check if a move is valid
-	bool validMove = MoveChecker(row, column, move, occupiedSpot);
+	bool validMove = MoveChecker(row, column, occupiedSpot);
 
 	// If move is valid it runs this code, otherwise MoveChecker prompts the user to go again
 	if (validMove)
@@ -82,7 +84,8 @@ void Board::MakeMove() {
 
 		// String array keeps track of moves that have already been played
 		if (moveCount < 9)
-			occupiedSpot[moveCount] = move;
+			//Formatting move into format of A1, B1, etc...
+			occupiedSpot[moveCount - 1] = to_string(row + 1) + string(1, 'A' + column);
 	}
 }
 
@@ -104,7 +107,7 @@ This function will check to see if the player is making an illegal move
 Checks: If there is already a mark in a spot and
 if the move is out of bounds (not A,B,C or 1,2,3 for columns/rows respectively)
 */
-bool Board::MoveChecker(int row, int col, string move, string occupiedSpot[])
+bool Board::MoveChecker(int row, int col, string occupiedSpot[])
 {
 	// check that move is not out of bounds w/ row and column
 	if (row < 0 || row > 2 || col < 0 || col > 2)
@@ -113,9 +116,11 @@ bool Board::MoveChecker(int row, int col, string move, string occupiedSpot[])
 		return false;
 	}
 	// check if move has already been played
+	//Formatting move into format of A1, B1, etc...
+	string formattedMove = to_string(row + 1) + string(1, 'A' + col);
 	for (int i = 0; i < BOARD_SIZE; i++)
 	{
-		if (occupiedSpot[i] == move)
+		if (occupiedSpot[i] == formattedMove)
 		{
 			cout << "\nA Player has already played in this space, try again!\n";
 			return false;
