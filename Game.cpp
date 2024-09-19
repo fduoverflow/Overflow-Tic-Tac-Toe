@@ -51,6 +51,7 @@ void PlayGame()
 			gameBoard.MakeMove();
 			gameBoard.DisplayBoard();
 		}
+
 		else if (winFound == true)
 		{
 			if (gameBoard.GetMark()) {
